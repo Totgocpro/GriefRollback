@@ -1,0 +1,16 @@
+name: GriefRollback
+version: '1.0-SNAPSHOT'
+main: fr.tototcs.GriefRollback
+api-version: '1.21'
+load: STARTUP
+commands:
+  griefrollback:
+    description: Main command of GriefRollback
+    permission: griefrollback.command
+
+    aliases:
+      - "gf"
+      - "gr"
+
+
+authors: [ tototcs ]
