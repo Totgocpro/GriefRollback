@@ -12,7 +12,7 @@ How it works: Allows you to save control points of your world at certain predefi
 
 🐛 Found a bug? [Issue page](https://github.com/Totgocpro/GriefRollback/issues)
 
-[Source code](https://github.com/Totgocpro/GriefRollback)
+Builds --> https://modrinth.com/project/griefrollback/
 
 
 <details>
