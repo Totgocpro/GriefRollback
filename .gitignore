@@ -1,0 +1,15 @@
+*.log
+*.tmp
+
+
+build/
+.idea/
+.gradle/
+
+
+.DS_Store
+Thumbs.db
+
+
+*.key
+*.pem
