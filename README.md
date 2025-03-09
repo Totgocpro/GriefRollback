@@ -3,8 +3,11 @@
 How it works: Allows you to save control points of your world at certain predefined times and restore them in case of problems in a single command.
 
 ✅ Backups are optimized and are designed to take up little disk space by only saving what is necessary.
+
 ✅ Open-source
+
 ✅ Tps only decreases when saving and rolling back chunks.
+
 ✅ Configurable
 
 🐛 Found a bug? [Issue page](https://github.com/Totgocpro/GriefRollback/issues)
