@@ -212,6 +212,17 @@ public class MainCommand implements CommandExecutor {
                                 }
                             }
                         }
+                    }else{
+                        String task = ChunkStorageAtTick.getTask();
+                        if (task == null) {
+                            sender.sendMessage("§4[GriefRollback] §r§2No task was started");
+                        } else {
+                            if (ChunkStorageAtTick.getPlayerask() != null) {
+                                sender.sendMessage("§4[GriefRollback] §r§2A task was started by " + ChunkStorageAtTick.getPlayerask().getName());
+                            } else {
+                                sender.sendMessage("§4[GriefRollback] §r§2A task was started by Server");
+                            }
+                        }
                     }
                 }
                 case "versions" -> {
@@ -219,7 +230,7 @@ public class MainCommand implements CommandExecutor {
                     if (args.length != 1) {
                         Offset = Integer.parseInt(args[1]);
                     }
-                    sender.sendMessage("GriefRollback checkpoints Page [" + ((Offset / 10) + 1) + "/" + getMaxOffset("plugins/GriefRollback/Checkpoints/", 10) + "]");
+                    sender.sendMessage("§4GriefRollback §r§2Acheckpoints Page [" + ((Offset / 10) + 1) + "/" + getMaxOffset("plugins/GriefRollback/Checkpoints/", 10) + "]");
                     for (String i : getLastGRSFiles("plugins/GriefRollback/Checkpoints/", 10, Offset)) {
                         Component text = Component.text("Checkpoint --> " + convertTimestamp(i.replaceAll(".grs", "")))
                                 .color(NamedTextColor.RED)

@@ -12,15 +12,16 @@ How it works: Allows you to save control points of your world at certain predefi
 
 🐛 Found a bug? [Issue page](https://github.com/Totgocpro/GriefRollback/issues)
 
-Builds --> https://modrinth.com/project/griefrollback/
+[Source code](https://github.com/Totgocpro/GriefRollback)
 
 
 <details>
 <summary>Commands</summary>
 
-  - griefrollback save → Perform a world backup
-  - griefrollback task [info/join] → Get current task info or ask the plugin to set itself as the task executor (used to get real-time progress).
-  - griefrollback rollback [time] → Restores the world as it was [time] ago (it will restore the nearest backup).
+- griefrollback save → Perform a world backup
+- griefrollback task [info/join] → Get current task info or ask the plugin to set itself as the task executor (used to get real-time progress).
+- griefrollback rollback [time] → Restores the world as it was [time] ago (it will restore the nearest backup).
+- griefrollback version → View all saved versions of the world and allow them to be restored quickly
 
 </details>
 
