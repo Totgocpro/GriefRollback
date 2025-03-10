@@ -21,7 +21,7 @@ public class AutoSaveAtTick {
         Time++;
         if (Time >= interval){
             Time = 0;
-            StoreChunk.SaveListOfChunk(BaseEvent.modifiedChunks, null, true);
+            StoreChunk.SaveListOfChunk(BaseEvent.modifiedChunks, null, false);
             if (LogAutoCheckPoint){
                 GriefRollback.getInstance().getLogger().log(Level.INFO, "A Save Task was been launch");
             }
