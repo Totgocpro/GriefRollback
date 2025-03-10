@@ -39,7 +39,7 @@ public class MainCommand implements CommandExecutor {
         File folder = new File(directoryPath);
 
         if (!folder.exists() || !folder.isDirectory()) {
-            throw new IllegalArgumentException("Uncorrected Path");
+            return new ArrayList<>();
         }
 
         return Arrays.stream(Objects.requireNonNull(folder.listFiles((dir, name) -> name.endsWith(".grs"))))
