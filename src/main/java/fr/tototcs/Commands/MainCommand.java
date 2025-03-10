@@ -39,7 +39,7 @@ public class MainCommand implements CommandExecutor {
         File folder = new File(directoryPath);
 
         if (!folder.exists() || !folder.isDirectory()) {
-            throw new IllegalArgumentException("Le chemin spécifié n'est pas un dossier valide.");
+            throw new IllegalArgumentException("Uncorrected Path");
         }
 
         return Arrays.stream(Objects.requireNonNull(folder.listFiles((dir, name) -> name.endsWith(".grs"))))
@@ -54,7 +54,7 @@ public class MainCommand implements CommandExecutor {
         File folder = new File(directoryPath);
 
         if (!folder.exists() || !folder.isDirectory()) {
-            throw new IllegalArgumentException("Le chemin spécifié n'est pas un dossier valide.");
+            return 0;
         }
 
         // Compter le nombre total de fichiers .grs
@@ -151,7 +151,6 @@ public class MainCommand implements CommandExecutor {
             throw new IllegalArgumentException("Future timeStamp !");
         }
 
-        // Unités de temps avec leur symbole
         Map<Long, String> timeUnits = new LinkedHashMap<>();
         timeUnits.put(MONTH, "mo");
         timeUnits.put(WEEK, "w");
@@ -169,11 +168,11 @@ public class MainCommand implements CommandExecutor {
             long count = elapsedTime / unitTime;
             if (count > 0) {
                 formattedTime.append(count).append(unitSymbol);
-                elapsedTime %= unitTime; // Reste du temps après cette unité
+                elapsedTime %= unitTime;
             }
         }
 
-        return formattedTime.toString(); // Retourne la chaîne sans espace
+        return formattedTime.toString();
     }
 
     @Override
@@ -230,7 +229,12 @@ public class MainCommand implements CommandExecutor {
                     if (args.length != 1) {
                         Offset = Integer.parseInt(args[1]);
                     }
-                    sender.sendMessage("§4GriefRollback §r§2Acheckpoints Page [" + ((Offset / 10) + 1) + "/" + getMaxOffset("plugins/GriefRollback/Checkpoints/", 10) + "]");
+
+                    if (getLastGRSFiles("plugins/GriefRollback/Checkpoints/", 30, 0).isEmpty()){
+                        sender.sendMessage("§4GriefRollback §r§2No Checkpoints was found");
+                        return false;
+                    }
+                    sender.sendMessage("§4GriefRollback §r§2checkpoints Page [" + ((Offset / 10) + 1) + "/" + getMaxOffset("plugins/GriefRollback/Checkpoints/", 10) + "]");
                     for (String i : getLastGRSFiles("plugins/GriefRollback/Checkpoints/", 10, Offset)) {
                         Component text = Component.text("Checkpoint --> " + convertTimestamp(i.replaceAll(".grs", "")))
                                 .color(NamedTextColor.RED)
