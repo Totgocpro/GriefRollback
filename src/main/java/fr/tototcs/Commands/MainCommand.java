@@ -179,73 +179,71 @@ public class MainCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String msg, @NotNull String[] args) {
         if (sender instanceof Player){
-            if (args[0].equals("save")) {
-                StoreChunk.SaveListOfChunk(BaseEvent.modifiedChunks, (Player) sender, false);
-
-            } else if (args[0].equals("rollback")) {
-                if (args.length == 2){
-                    ChunkStorageAtTick.LoadChunk(parseToTimestamp(args[1]), ((Player) sender).getWorld(), (Player) sender);
-
+            switch (args[0]) {
+                case "save" -> StoreChunk.SaveListOfChunk(BaseEvent.modifiedChunks, (Player) sender, false);
+                case "rollback" -> {
+                    if (args.length == 2) {
+                        ChunkStorageAtTick.LoadChunk(parseToTimestamp(args[1]), ((Player) sender).getWorld(), (Player) sender);
+                    }
                 }
-                //StoreChunk.loadChunkFromFile(((Player) sender).getChunk().getX(), ((Player) sender).getChunk().getZ(), ((Player) sender).getWorld());
-
-            } else if (args[0].equals("task")) {
-                if (args.length == 2){
-                    if (args[1].equals("info")){
-                        String task = ChunkStorageAtTick.getTask();
-                        if (task == null){
-                            sender.sendMessage("§4[GriefRollback] §r§2No task was started");
-                        }else{
-                            if (ChunkStorageAtTick.getPlayerask() != null) {
-                                sender.sendMessage("§4[GriefRollback] §r§2A task was started by " + ChunkStorageAtTick.getPlayerask().getName());
-                            }else {
-                                sender.sendMessage("§4[GriefRollback] §r§2A task was started by Server");
+                case "task" -> {
+                    if (args.length == 2) {
+                        if (args[1].equals("info")) {
+                            String task = ChunkStorageAtTick.getTask();
+                            if (task == null) {
+                                sender.sendMessage("§4[GriefRollback] §r§2No task was started");
+                            } else {
+                                if (ChunkStorageAtTick.getPlayerask() != null) {
+                                    sender.sendMessage("§4[GriefRollback] §r§2A task was started by " + ChunkStorageAtTick.getPlayerask().getName());
+                                } else {
+                                    sender.sendMessage("§4[GriefRollback] §r§2A task was started by Server");
+                                }
+                            }
+                        } else if (args[1].equals("join")) {
+                            String task = ChunkStorageAtTick.getTask();
+                            if (task == null) {
+                                sender.sendMessage("§4[GriefRollback] §r§2No task was started");
+                            } else {
+                                if (ChunkStorageAtTick.getPlayerask() != null) {
+                                    sender.sendMessage("§4[GriefRollback] §r§2Only server task can be joined");
+                                } else {
+                                    ChunkStorageAtTick.setPlayerask((Player) sender);
+                                    sender.sendMessage("§4[GriefRollback] §r§2You have be set by the author of the task");
+                                }
                             }
                         }
                     }
-                }else if (args[1].equals("join")){
-                        String task = ChunkStorageAtTick.getTask();
-                        if (task == null){
-                            sender.sendMessage("§4[GriefRollback] §r§2No task was started");
-                        }else{
-                            if (ChunkStorageAtTick.getPlayerask() != null) {
-                                sender.sendMessage("§4[GriefRollback] §r§2Only server task can be joined");
-                            }else {
-                                ChunkStorageAtTick.setPlayerask((Player) sender);
-                                sender.sendMessage("§4[GriefRollback] §r§2You have be set by the author of the task");
-                            }
-                        }
+                }
+                case "versions" -> {
+                    int Offset = 0;
+                    if (args.length != 1) {
+                        Offset = Integer.parseInt(args[1]);
+                    }
+                    sender.sendMessage("GriefRollback checkpoints Page [" + ((Offset / 10) + 1) + "/" + getMaxOffset("plugins/GriefRollback/Checkpoints/", 10) + "]");
+                    for (String i : getLastGRSFiles("plugins/GriefRollback/Checkpoints/", 10, Offset)) {
+                        Component text = Component.text("Checkpoint --> " + convertTimestamp(i.replaceAll(".grs", "")))
+                                .color(NamedTextColor.RED)
+                                .hoverEvent(HoverEvent.showText(Component.text("Click to see rollback command")))
+                                .clickEvent(ClickEvent.suggestCommand("/gf rollback " + formatTimestamp(Long.parseLong(i.replaceAll(".grs", "")) + 5)));
+
+                        sender.sendMessage(text);
+                    }
+                    Component PageNextComp = Component.text(">> Next Page")
+                            .color(NamedTextColor.BLUE)
+                            .hoverEvent(HoverEvent.showText(Component.text("Next")))
+                            .clickEvent(ClickEvent.runCommand("/gf versions " + (Offset + 10)));
+                    if (!(((Offset / 10) + 1) == getMaxOffset("plugins/GriefRollback/Checkpoints/", 10))) {
+                        sender.sendMessage(PageNextComp);
                     }
 
-            }else if(args[0].equals("versions")){
-                int Offset = 0;
-                if (args.length != 1){
-                    Offset = Integer.parseInt(args[1]);
-                }
-                sender.sendMessage("GriefRollback checkpoints Page [" + ((Offset / 10) + 1) +"/"+ getMaxOffset("plugins/GriefRollback/Checkpoints/", 10)+"]");
-                for (String i : getLastGRSFiles("plugins/GriefRollback/Checkpoints/", 10, Offset)){
-                    Component text = Component.text("Checkpoint --> "+ convertTimestamp(i.replaceAll(".grs", "")))
-                            .color(NamedTextColor.RED)
-                            .hoverEvent(HoverEvent.showText(Component.text("Click to see rollback command")))
-                            .clickEvent(ClickEvent.suggestCommand("/gf rollback " + formatTimestamp(Long.parseLong(i.replaceAll(".grs", "")) + 5)));
-                    
-                    sender.sendMessage(text);
-                }
-                Component PageNextComp = Component.text(">> Next Page")
-                        .color(NamedTextColor.BLUE)
-                        .hoverEvent(HoverEvent.showText(Component.text("Next")))
-                        .clickEvent(ClickEvent.runCommand("/gf versions " + (Offset + 10)));
-                if (!(((Offset / 10) + 1) == getMaxOffset("plugins/GriefRollback/Checkpoints/", 10))){
-                    sender.sendMessage(PageNextComp);
-                }
+                    Component PagePrevComp = Component.text("<< Previous Page")
+                            .color(NamedTextColor.BLUE)
+                            .hoverEvent(HoverEvent.showText(Component.text("Previous")))
+                            .clickEvent(ClickEvent.runCommand("/gf versions " + (Offset - 10)));
 
-                Component PagePrevComp = Component.text("<< Previous Page")
-                        .color(NamedTextColor.BLUE)
-                        .hoverEvent(HoverEvent.showText(Component.text("Previous")))
-                        .clickEvent(ClickEvent.runCommand("/gf versions " + (Offset - 10)));
-
-                if (!(Offset <=0)){
-                    sender.sendMessage(PagePrevComp);
+                    if (!(Offset <= 0)) {
+                        sender.sendMessage(PagePrevComp);
+                    }
                 }
             }
         }
