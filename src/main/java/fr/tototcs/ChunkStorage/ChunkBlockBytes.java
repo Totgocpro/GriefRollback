@@ -108,7 +108,9 @@ public class ChunkBlockBytes {
                                 try{
                                     blockDataString = "CHEST:"+ serializeInventory(chest.getBlockInventory());
                                 } catch (Exception e) {
-                                    throw new RuntimeException(e);
+                                    throw new IOException();
+                                }finally {
+                                    blockDataString = blockDataString;
                                 }
 
                             }

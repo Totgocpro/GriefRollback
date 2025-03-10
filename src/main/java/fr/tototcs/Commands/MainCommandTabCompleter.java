@@ -18,6 +18,7 @@ public class MainCommandTabCompleter implements TabCompleter {
             suggestions.add("save");
             suggestions.add("rollback");
             suggestions.add("task");
+            suggestions.add("versions");
 
             return suggestions;
         }
