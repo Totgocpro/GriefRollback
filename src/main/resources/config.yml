@@ -7,6 +7,11 @@ AutoCheckpointInterval: 72000
 #If true all auto-checkpoint task will be sent into the server console
 LogAutoCheckPoint: true
 
+#Auto-Delete old world version: if set to true the oldest version will be deleted to avoid exceeding a certain size
+Autodeleteversion: true
+#The max size of the version folder (in mo)
+AutodeleteversionMaxSize: 5000
+
 #If set to true all villagers, xp, position and profession will be save (can take more time to save a chunk and more space and the Trades was not saved currently)
 StoreVillagers: true
 

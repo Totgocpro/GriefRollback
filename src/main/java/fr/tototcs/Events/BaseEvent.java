@@ -44,12 +44,12 @@ public class BaseEvent implements Listener {
         modifiedChunks.add(getChunkKey(chunk));
     }
 
-    /*@EventHandler
+    @EventHandler
     public void onBlockBurn(BlockBurnEvent event) {
         Block block = event.getBlock();
         Chunk chunk = block.getChunk();
         modifiedChunks.add(getChunkKey(chunk));
-    }*/
+    }
 
     @EventHandler
     public void onBlockExplode(BlockExplodeEvent event) {
@@ -78,14 +78,14 @@ public class BaseEvent implements Listener {
         Block block = event.getBlock();
         Chunk chunk = block.getChunk();
         modifiedChunks.add(getChunkKey(chunk));
-    }
+    }*/
 
     @EventHandler
     public void onBlockGrow(BlockGrowEvent event) {
         Block block = event.getBlock();
         Chunk chunk = block.getChunk();
         modifiedChunks.add(getChunkKey(chunk));
-    }*/
+    }
 
     @EventHandler
     public void onBlockPistonExtend(BlockPistonExtendEvent event) {

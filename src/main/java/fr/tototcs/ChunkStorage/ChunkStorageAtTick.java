@@ -1,6 +1,8 @@
 package fr.tototcs.ChunkStorage;
 
+import fr.tototcs.Checkpoints.CheckpointsCleaner;
 import fr.tototcs.Events.BaseEvent;
+import fr.tototcs.GriefRollback;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
@@ -169,6 +171,11 @@ public class ChunkStorageAtTick {
                     File zipFile = new File("plugins/GriefRollback/Checkpoints/" + CheckPointID + ".grs");
                     zipFolder(sourceFolder, zipFile);
                     deleteFolderRecursively(sourceFolder);
+
+                    if (GriefRollback.getInstance().getConfig().getBoolean("Autodeleteversion", true)){
+                        playerask.sendMessage("§4[GriefRollback] §r§2Deleting old version...");
+                        CheckpointsCleaner.cleanOldGrsFiles("plugins/GriefRollback/Checkpoints/", GriefRollback.getInstance().getConfig().getLong("AutodeleteversionMaxSize", 5000));
+                    }
 
                     if (playerask != null) {
                         playerask.sendMessage("§4[GriefRollback] §r§2A CheckPoint was created !");

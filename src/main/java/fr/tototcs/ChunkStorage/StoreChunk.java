@@ -1,5 +1,6 @@
 package fr.tototcs.ChunkStorage;
 
+import fr.tototcs.Checkpoints.CheckpointsCleaner;
 import fr.tototcs.GriefRollback;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -206,6 +207,9 @@ public class StoreChunk {
 
                 deleteFolderRecursively(sourceFolder);
                 GriefRollback.getInstance().getLogger().log(Level.INFO,"Saved");
+                if (GriefRollback.getInstance().getConfig().getBoolean("Autodeleteversion", true)){
+                    CheckpointsCleaner.cleanOldGrsFiles("plugins/GriefRollback/Checkpoints/", GriefRollback.getInstance().getConfig().getLong("AutodeleteversionMaxSize", 5000));
+                }
             }
         }else{
             ChunkStorageAtTick.SaveChunks(ChunkList, playerask);
