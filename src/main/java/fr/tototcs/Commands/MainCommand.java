@@ -178,6 +178,9 @@ public class MainCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String msg, @NotNull String[] args) {
         if (sender instanceof Player){
+            if (args.length == 0){
+                sender.sendMessage("§4[GriefRollback] §r§2Not enough argument");
+            }
             switch (args[0]) {
                 case "save" -> StoreChunk.SaveListOfChunk(BaseEvent.modifiedChunks, (Player) sender, false);
                 case "rollback" -> {

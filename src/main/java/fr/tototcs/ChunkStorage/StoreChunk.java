@@ -208,6 +208,7 @@ public class StoreChunk {
                 deleteFolderRecursively(sourceFolder);
                 GriefRollback.getInstance().getLogger().log(Level.INFO,"Saved");
                 if (GriefRollback.getInstance().getConfig().getBoolean("Autodeleteversion", true)){
+                    GriefRollback.getInstance().getLogger().log(Level.INFO,"Cleaning...");
                     CheckpointsCleaner.cleanOldGrsFiles("plugins/GriefRollback/Checkpoints/", GriefRollback.getInstance().getConfig().getLong("AutodeleteversionMaxSize", 5000));
                 }
             }

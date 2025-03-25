@@ -20,7 +20,6 @@ import java.io.*;
 import java.util.zip.*;
 
 public class ChunkStorageAtTick {
-
     static boolean isTask = false;
     static String Type = "";
     static long CheckPointID = System.currentTimeMillis();
@@ -128,7 +127,7 @@ public class ChunkStorageAtTick {
         folder.delete(); // Delete the folder
     }
 
-    public static void LoadChunk(Long time, World currentworld, Player askplayer){
+    public static void LoadChunk(Long time, World currentworld, Player askplayer, double radius){
         if (!isTask) {
             if (askplayer != null) {
                 askplayer.sendMessage("§4[GriefRollback] §r§2Preparation (can cause a lot of tps loss)");

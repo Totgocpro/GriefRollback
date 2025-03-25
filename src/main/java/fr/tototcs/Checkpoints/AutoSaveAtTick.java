@@ -1,5 +1,6 @@
 package fr.tototcs.Checkpoints;
 
+import fr.tototcs.ChunkStorage.ChunkStorageAtTick;
 import fr.tototcs.ChunkStorage.StoreChunk;
 import fr.tototcs.Events.BaseEvent;
 import fr.tototcs.GriefRollback;
@@ -21,7 +22,7 @@ public class AutoSaveAtTick {
         Time++;
         if (Time >= interval){
             Time = 0;
-            StoreChunk.SaveListOfChunk(BaseEvent.modifiedChunks, null, false);
+            ChunkStorageAtTick.SaveChunks(BaseEvent.modifiedChunks, null);
             if (LogAutoCheckPoint){
                 GriefRollback.getInstance().getLogger().log(Level.INFO, "A Save Task was been launch");
             }
