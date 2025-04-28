@@ -310,6 +310,10 @@ public class ChunkBlockBytes {
             }
         }
 
+        if (!GriefRollback.getInstance().getConfig().getBoolean("StoreVillagers", true)){
+            return;
+        }
+
         // Add villagers and other data
         for (String Data : data){
             if (Data.startsWith("VILLAGER:[")){

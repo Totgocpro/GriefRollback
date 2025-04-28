@@ -127,7 +127,7 @@ public class ChunkStorageAtTick {
         folder.delete(); // Delete the folder
     }
 
-    public static void LoadChunk(Long time, World currentworld, Player askplayer, double radius){
+    public static void LoadChunk(Long time, World currentworld, Player askplayer){
         if (!isTask) {
             if (askplayer != null) {
                 askplayer.sendMessage("§4[GriefRollback] §r§2Preparation (can cause a lot of tps loss)");
@@ -135,14 +135,25 @@ public class ChunkStorageAtTick {
             CheckPointID = time;
             i = 0;
             Chunksstr = null;
-            fileMap = StoreChunk.listFiles("plugins/GriefRollback/Checkpoints/", time, currentworld.getName());
-            fileList = new ArrayList<>(fileMap.keySet());
+            isTask = true;
+            Type = "";
             playerask = askplayer;
-            Type = "Load";
-            world = currentworld;
-            if (!fileList.isEmpty()) {
-                isTask = true;
-            }
+            Bukkit.getScheduler().runTaskAsynchronously(GriefRollback.getInstance(), () -> {
+                fileMap = StoreChunk.listFiles("plugins/GriefRollback/Checkpoints/", time, currentworld.getName());
+
+                Bukkit.getScheduler().runTask(GriefRollback.getInstance(), () -> {
+                    fileList = new ArrayList<>(fileMap.keySet());
+                    Type = "Load";
+                    world = currentworld;
+                    if (!fileList.isEmpty()) {
+                        isTask = true;
+                    }else{
+                        isTask = false;
+                        Type = "";
+                    }
+                });
+            });
+
         }else {
             if (askplayer != null) {
                 askplayer.sendMessage("§4[GriefRollback] §r§2A task was already started");
