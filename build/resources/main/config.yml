@@ -7,7 +7,7 @@ AutoCheckpointInterval: 72000
 #If true all auto-checkpoint task will be sent into the server console
 LogAutoCheckPoint: true
 
-#Auto-Delete old world version: if set to true the oldest version will be deleted to avoid exceeding a certain size
+#Auto-Delete old world version: if set to true the oldest version will be deleted to avoid exceeding a certain size, this can also be named as a 'Quota' feature
 Autodeleteversion: true
 #The max size of the version folder (in mo)
 AutodeleteversionMaxSize: 5000
